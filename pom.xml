@@ -12,6 +12,7 @@
     <artifactId>tutorial-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>08_Tutorials_backend</name>
+    <packaging>jar</packaging>
     <description>08_Tutorials_backend</description>
     <properties>
         <java.version>17</java.version>

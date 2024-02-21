@@ -1,9 +1,10 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
+# TO DEPLOY WITH RENDER, COMMENT BELOW
+#target/
+#!.mvn/wrapper/maven-wrapper.jar
+#!**/src/main/**/target/
+#!**/src/test/**/target/
+## END DEPLOY WITH RENDER
 ### STS ###
 .apt_generated
 .classpath
