@@ -2,7 +2,6 @@ FROM maven:3.8-openjdk-17
 FROM eclipse-temurin:17-jdk-alpine as build
 WORKDIR /app
 COPY . .
-RUN apk add --no-cache maven
 RUN mvn clean package
 
 FROM eclipse-temurin:17-jdk-alpine
