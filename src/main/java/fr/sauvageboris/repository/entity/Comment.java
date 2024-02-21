@@ -20,6 +20,5 @@ public class Comment {
     private String content;
     @NonNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tutorial_id", nullable = false)
     private User author;
 }
