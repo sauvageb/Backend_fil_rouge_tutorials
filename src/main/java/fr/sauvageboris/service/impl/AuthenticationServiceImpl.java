@@ -12,6 +12,8 @@ import fr.sauvageboris.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public JwtAuthenticationResponse signin(SigninRequest dto) {
         // Authentifie l'utilisateur avec l'AuthenticationManager
         UsernamePasswordAuthenticationToken usernamePasswordToken = new UsernamePasswordAuthenticationToken(dto.getEmail(), dto.getPassword());
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordToken);
+        // Mise à jour du contexte de sécurité
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Recherche l'utilisateur par e-mail
         User user = userRepository

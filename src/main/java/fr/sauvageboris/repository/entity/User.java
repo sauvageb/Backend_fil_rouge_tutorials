@@ -32,6 +32,11 @@ public class User implements UserDetails {
     private String password;
 
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private List<Role> roleList;
 
     public UserDto toDto() {
@@ -75,6 +80,8 @@ public class User implements UserDetails {
     public String getPassword() {
         return password;
     }
+
+
 
 }
 
