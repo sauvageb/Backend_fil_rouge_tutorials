@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @CrossOrigin("http://localhost:4200")
@@ -30,9 +31,10 @@ public class TutorialController {
 
     @GetMapping
     public ResponseEntity<?> fetchAll() {
+        List<Tutorial> tutorialList = (List<Tutorial>) tutorialRepository.findAll();
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(tutorialRepository.findAll());
+                .body(tutorialList);
     }
 
     @PostMapping
