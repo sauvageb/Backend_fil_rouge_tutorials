@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api/tutorials")
 public class TutorialController {
@@ -49,15 +49,29 @@ public class TutorialController {
         tutorial.setCreatedAt(LocalDateTime.now());
 
         Authentication authenticationToken = SecurityContextHolder.getContext().getAuthentication();
-        if (authenticationToken.getPrincipal() != null) {
-            String connectedUserEmail = ((UserDetails) authenticationToken.getPrincipal()).getUsername();
-            User user = (User) userService.userDetailsService().loadUserByUsername(connectedUserEmail);
-            tutorial.setAuthor(user);
-        } else {
-            User user = (User) userService.userDetailsService().loadUserByUsername(dto.getAuthor());
-            tutorial.setAuthor(user);
-        }
+        String connectedUserEmail = ((UserDetails) authenticationToken.getPrincipal()).getUsername();
+        User user = (User) userService.userDetailsService().loadUserByUsername(connectedUserEmail);
+        tutorial.setAuthor(user);
 
+
+        tutorialRepository.save(tutorial);
+        return ResponseEntity
+                .status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/anonymous")
+    @Transactional
+    public ResponseEntity<?> createTutorialAnonymois(@RequestBody CreateTutorial dto) {
+        Tutorial tutorial = new Tutorial();
+        tutorial.setTitle(dto.getTitle());
+        tutorial.setDescription(dto.getDescription());
+        tutorial.setContent(dto.getContent());
+        tutorial.setCategory(categoryRepository.findById(dto.getCategory().getId()).get());
+
+        tutorial.setCreatedAt(LocalDateTime.now());
+
+        User user = (User) userService.userDetailsService().loadUserByUsername("sauvageboris.pro@tutorial.fr");
+        tutorial.setAuthor(user);
 
         tutorialRepository.save(tutorial);
         return ResponseEntity

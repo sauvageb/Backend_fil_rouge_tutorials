@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Data
 @Builder
 @NoArgsConstructor
@@ -17,6 +15,5 @@ public class CreateTutorial {
     private String description;
     private String content;
     private Category category;
-    private String author;
 }
 

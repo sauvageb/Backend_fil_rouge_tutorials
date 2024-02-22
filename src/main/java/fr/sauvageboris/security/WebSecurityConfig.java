@@ -4,6 +4,7 @@ import fr.sauvageboris.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -76,6 +77,7 @@ public class WebSecurityConfig {
                             .requestMatchers(SIGN_UP_URI_ENDING).permitAll()
                             .requestMatchers("/api/categories").permitAll()
                             .requestMatchers("/api/tutorials").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/tutorials/anonymous").permitAll()
                             .requestMatchers("api/admin/**").hasAuthority("ADMIN")
                             // Toutes les autres requêtes HTTP nécessitent une authentification
                             .anyRequest().authenticated();
