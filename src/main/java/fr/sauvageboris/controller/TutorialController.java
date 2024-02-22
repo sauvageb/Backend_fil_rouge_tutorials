@@ -49,10 +49,15 @@ public class TutorialController {
         tutorial.setCreatedAt(LocalDateTime.now());
 
         Authentication authenticationToken = SecurityContextHolder.getContext().getAuthentication();
-        String connectedUserEmail = ((UserDetails) authenticationToken.getPrincipal()).getUsername();
-        User user = (User) userService.userDetailsService().loadUserByUsername(connectedUserEmail);
+        if (authenticationToken != null) {
+            String connectedUserEmail = ((UserDetails) authenticationToken.getPrincipal()).getUsername();
+            User user = (User) userService.userDetailsService().loadUserByUsername(connectedUserEmail);
+            tutorial.setAuthor(user);
+        } else {
+            User user = (User) userService.userDetailsService().loadUserByUsername(dto.getAuthor());
+            tutorial.setAuthor(user);
+        }
 
-        tutorial.setAuthor(user);
 
         tutorialRepository.save(tutorial);
         return ResponseEntity

@@ -17,5 +17,6 @@ public class CreateTutorial {
     private String description;
     private String content;
     private Category category;
+    private String author;
 }
 
