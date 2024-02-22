@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
 @RequestMapping("/api/tutorials")
 public class TutorialController {
